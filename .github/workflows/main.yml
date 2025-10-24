@@ -1,0 +1,21 @@
+name: Ubuntu RDP + Guacamole Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Guacamole Installer
+        run: sudo bash .github/scripts/setup-ubuntu-rdp-guac-ci.sh
+        env:
+          TARGET_USER: ciuser
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          CREATE_GITHUB: "true"
